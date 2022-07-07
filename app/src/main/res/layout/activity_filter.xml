@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onCLick"
+            type="OnClickListener" />
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_initial"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/ic_launcher"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/bt_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onCLick}"
+            android:text="还原" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_hd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="灰度" />
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_lk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="轮廓" />
+
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_ez"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="二值化" />
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_hj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="怀旧" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_lhh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="连环画" />
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_sm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="素描" />
+
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_pz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="膨胀" />
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_rz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="熔铸" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_bd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="冰冻" />
+            <Button
+                android:layout_marginLeft="5dp"
+                android:id="@+id/bt_fd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="浮雕" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
