@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.wkq.opencvdemo.activity.BrightnessAndContrastActivity
 import com.wkq.opencvdemo.activity.FilterActivity
+import com.wkq.opencvdemo.activity.PhotoProcessActivity
 import com.wkq.opencvdemo.databinding.ActivityMainBinding
 import com.wkq.opencvdemo.util.ImageUtil
+import com.wkq.opencvdemo.util.PhotoUtil
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +70,11 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btLdb.setOnClickListener {
             BrightnessAndContrastActivity.newInstance(this)
+        }
+        var size=5f
+
+        binding.btWz.setOnClickListener {
+            PhotoProcessActivity.newInstance(this)
         }
 
     }

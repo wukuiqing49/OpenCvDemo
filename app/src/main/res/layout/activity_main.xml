@@ -31,23 +31,30 @@
                 android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
-
+        <Button
+            android:id="@+id/bt_hy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="还原" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/bt_hy"
+                android:id="@+id/bt_wz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="还原" />
+                android:text="图片操作" />
+
             <Button
                 android:id="@+id/bt_lj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="滤镜" />
 
             <Button
@@ -55,8 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:text="亮度,对比度,曝光度" />
+                android:layout_marginLeft="5dp"
+                android:text="亮,对比,曝光" />
         </LinearLayout>
 
 
@@ -65,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
+
 
             <Button
                 android:id="@+id/bt_gf"
@@ -138,6 +146,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:text="膨胀操作" />
+
+
 
         </LinearLayout>
 

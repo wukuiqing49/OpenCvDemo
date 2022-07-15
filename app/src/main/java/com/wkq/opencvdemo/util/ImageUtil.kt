@@ -243,7 +243,6 @@ object ImageUtil {
         Core.addWeighted(srcMat, lightNum/10, bgrMat, lightNum/10, (lightNum*3-10), dstMat) // 添加权重
         Utils.matToBitmap(dstMat, bitmap)
         imageResult.setImageBitmap(bitmap);
-
         srcMat.release();
         dstMat.release();
         bgrMat.release()
@@ -269,5 +268,64 @@ object ImageUtil {
         return dst
     }
 
+    //绘制标记
+    //Imgproc.drawMarker(bgrList[i], bgrList[i])
+
+    //链接组件
+    //Imgproc.connectedComponentsWithStats(bgrList[i], bgrList[i])
+
+    //去马斯克
+    //Imgproc.demosaicing(bgrList[i], bgrList[i])
+
+   // 将图像从一个颜色空间转换为源图像所在的另一个颜色空间存储在两个平面中。
+    //Imgproc.cvtColorTwoPlane(bgrList[i], bgrList[i])
+
+   // 将图像从一个颜色空间转换为另一个颜色空间。
+    //Imgproc.cvtColor(bgrList[i], bgrList[i])
+
+   // 洪水填充。
+    //Imgproc.floodFill(bgrList[i], bgrList[i])
+
+   // 距离转换。
+    //Imgproc.distanceTransform(bgrList[i], bgrList[i])
+
+   // 比较两个图。
+    //Imgproc.equalizeHist(bgrList[i], bgrList[i])
+   // 自适应阈值。
+    //Imgproc.threshold(bgrList[i], bgrList[i])
+
+   // 更新运行平均值。
+    //Imgproc.accumulateWeighted(bgrList[i], bgrList[i])
+
+   // 叠加图像。
+    //Imgproc.accumulateSquare(bgrList[i], bgrList[i])
+
+   // 透明操作????
+    //Imgproc.getPerspectiveTransform(bgrList[i], bgrList[i])
+   // 将透视变换应用于图像。
+    //Imgproc.warpPerspective(bgrList[i], bgrList[i])
+    //Imgproc.warpPerspective(bgrList[i], bgrList[i])
+
+   // 该函数计算由（2乘以3）矩阵M表示的反仿射变换
+    //Imgproc.invertAffineTransform(bgrList[i], bgrList[i])
+
+   // 调整大小
+    //Imgproc.resize(bgrList[i], bgrList[i])
+
+    //Upsamples an image and then blurs it. 对图像进行上采样，然后使其模糊。  (模糊操作)
+    //Imgproc.pyrUp(bgrList[i], bgrList[i])
+    //Imgproc.pyrDown(bgrList[i], bgrList[i])
+    //Imgproc.blur(bgrList[i], bgrList[i])
+    //Imgproc.boxFilter(bgrList[i], bgrList[i])
+    //Imgproc.GaussianBlur(bgrList[i], bgrList[i])
+    //Imgproc.medianBlur(bgrList[i], bgrList[i])
+
+    //像素放大
+    //Imgproc.dilate(bgrList[i], bgrList[i])
+    //侵蚀效果
+    //Imgproc.erode(bgrList[i], bgrList[i])
+
+    //执行高级形态变换
+    //Imgproc.morphologyEx(bgrList[i], bgrList[i])
 
 }
