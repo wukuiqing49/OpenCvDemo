@@ -50,6 +50,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:layout_margin="5dp"
                 android:id="@+id/bt_jz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,11 +58,20 @@
                 android:text="降噪" />
 
             <Button
+                android:layout_margin="5dp"
                 android:id="@+id/bt_sjzq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{onCLick}"
                 android:text="细节增强" />
+
+            <Button
+                android:layout_margin="5dp"
+                android:id="@+id/bt_ts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{onCLick}"
+                android:text="脱色" />
         </LinearLayout>
 
         <LinearLayout

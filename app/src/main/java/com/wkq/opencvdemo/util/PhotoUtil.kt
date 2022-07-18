@@ -12,6 +12,7 @@ import android.widget.ImageView
 
 import org.opencv.android.Utils
 import org.opencv.core.*
+import org.opencv.imgproc.Imgproc
 import org.opencv.photo.Photo
 
 
@@ -33,7 +34,7 @@ object PhotoUtil {
     }
 
     /**
-     * 快速降噪
+     * 彩色图像快速均值去噪函数的改进
      */
     fun fastNlMeansDenoising(bitmap: Bitmap, imageResult: ImageView,size:Float){
         //灰度处理
@@ -68,6 +69,17 @@ object PhotoUtil {
         src.release();
         ret.release();
     }
+    /**
+     * 褪色
+     * size:Floa
+     * Range between 0 to 200.
+     */
+    fun decolor(bitmap: Bitmap, imageResult: ImageView){
+
+    }
+
+
+
     //将彩色图像转换为灰度图像  脱色
     //Photo.decolor(src,ret,size)
 
@@ -87,6 +99,8 @@ object PhotoUtil {
 
     //风格化
     //Photo.stylization(src,ret,size)
+    // 铅笔状非真实感线条绘制
+    //Photo.pencilSketch(src,ret,size)
 
 
 

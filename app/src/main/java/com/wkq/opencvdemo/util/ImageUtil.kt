@@ -9,8 +9,9 @@ import android.os.Build
 import android.widget.ImageView
 import org.opencv.android.Utils
 import org.opencv.core.*
+import org.opencv.core.CvType.CV_16UC1
 import org.opencv.imgproc.Imgproc
-import org.opencv.imgproc.Imgproc.MORPH_RECT
+import org.opencv.imgproc.Imgproc.*
 
 
 object ImageUtil {
@@ -247,7 +248,6 @@ object ImageUtil {
         dstMat.release();
         bgrMat.release()
         bgrList.clear()
-
     }
 
     /**
@@ -267,6 +267,24 @@ object ImageUtil {
         Core.bitwise_not(srcMat, dst) // 取反
         return dst
     }
+
+    //去马斯克
+    //Imgproc.demosaicing(bgrList[i], bgrList[i])
+    /**
+     * 设置图片亮度
+     */
+    fun demosaicing(bitmap: Bitmap, imageResult: ImageView){
+        //灰度处理
+        var src =  Mat();
+        var ret =  Mat();
+        Utils.bitmapToMat(bitmap, src);
+        Imgproc.demosaicing(src,ret, COLOR_BayerBG2BGRA)
+        Utils.matToBitmap(ret, bitmap)
+        imageResult.setImageBitmap(bitmap);
+        src.release();
+        ret.release();
+    }
+
 
     //绘制标记
     //Imgproc.drawMarker(bgrList[i], bgrList[i])

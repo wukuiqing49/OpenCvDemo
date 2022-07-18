@@ -348,11 +348,16 @@ public class Photo {
      * given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
      * denoising time. Recommended value 21 pixels
      * @param h Parameter regulating filter strength for luminance component. Bigger h value perfectly
+     *          h参数调节亮度分量的滤波器强度。更大的h值
      * removes noise but also removes image details, smaller h value preserves details but also preserves
+     *          移除噪声但也移除图像细节，较小的h值保留细节但也保留一些噪音
      * some noise
+     *
      * @param hColor The same as h but for color components. For most images value equals 10
      * will be enough to remove colored noise and do not distort colors
+     * hColor与h相同，但用于颜色成分。对于大多数图像，值等于10,将足以消除有色噪声，并且不会扭曲颜色
      *
+     * 该函数将图像转换为CIELAB颜色空间，然后分别对L和AB分量进行去噪
      * The function converts image to CIELAB colorspace and then separately denoise L and AB components
      * with given h parameters using fastNlMeansDenoising function.
      */
@@ -371,6 +376,11 @@ public class Photo {
      * @param h Parameter regulating filter strength for luminance component. Bigger h value perfectly
      * removes noise but also removes image details, smaller h value preserves details but also preserves
      * some noise
+     *  h参数调节亮度分量的滤波器强度。更大的h值
+     *
+     * *移除噪声但也移除图像细节，较小的h值保留细节但也保留
+     *
+     * *一些噪音
      * will be enough to remove colored noise and do not distort colors
      *
      * The function converts image to CIELAB colorspace and then separately denoise L and AB components

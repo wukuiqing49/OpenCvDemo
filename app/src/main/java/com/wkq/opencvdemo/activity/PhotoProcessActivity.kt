@@ -55,8 +55,8 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        Glide.with(this).load(R.mipmap.ic_launcher).into(binding!!.iv)
-        Glide.with(this).load(R.mipmap.ic_launcher).into(binding!!.ivContent)
+        Glide.with(this).load(path).into(binding!!.iv)
+        Glide.with(this).load(path).into(binding!!.ivContent)
         binding!!.onCLick = this
     }
 
@@ -64,7 +64,7 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
         Observable.create<Bitmap> {
 
 
-            var bm = Glide.with(this).asBitmap().load(R.mipmap.ic_launcher).submit().get()
+            var bm = Glide.with(this).asBitmap().load(path).submit().get()
             if (bm != null) it.onNext(bm)
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
@@ -92,7 +92,7 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
         Observable.create<Bitmap> {
 
 
-            var bm = Glide.with(this).asBitmap().load(R.mipmap.ic_launcher).submit().get()
+            var bm = Glide.with(this).asBitmap().load(path).submit().get()
             if (bm != null) it.onNext(bm)
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
@@ -101,7 +101,7 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
 
                     override fun onNext(bitmap: Bitmap) {
                         if (bitmap != null && bitmap.byteCount > 10) {
-                            PhotoUtil.fastNlMeansDenoising(bitmap, binding!!.ivContent, progress)
+                            PhotoUtil.detailEnhance(bitmap, binding!!.ivContent, progress)
                         } else {
                             Log.e("图片异常", bitmap.byteCount.toString())
                         }
@@ -117,17 +117,48 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun processPhotoTS() {
+        Observable.create<Bitmap> {
+
+
+            var bm = Glide.with(this).asBitmap().load(path).submit().get()
+            if (bm != null) it.onNext(bm)
+        }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onNext(bitmap: Bitmap) {
+                        if (bitmap != null && bitmap.byteCount > 10) {
+                            PhotoUtil.decolor(bitmap, binding!!.ivContent)
+                        } else {
+                            Log.e("图片异常", bitmap.byteCount.toString())
+                        }
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+
+                    override fun onComplete() {
+                    }
+                })
+
+    }
     var size = 1f
-    var Range=1f
+    var Range=50f
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.bt_jz -> {
                 processPhotoJz(size)
-                size += 3f
+                size += 1f
             }
             R.id.bt_sjzq -> {
                 processPhotosjzq(Range)
-                Range += 3f
+                Range += 10f
+            }
+            R.id.bt_ts-> {
+                processPhotoTS()
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.wkq.opencvdemo.activity.BrightnessAndContrastActivity
+import com.wkq.opencvdemo.activity.DemosaicingActivity
 import com.wkq.opencvdemo.activity.FilterActivity
 import com.wkq.opencvdemo.activity.PhotoProcessActivity
 import com.wkq.opencvdemo.databinding.ActivityMainBinding
@@ -75,6 +76,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.btWz.setOnClickListener {
             PhotoProcessActivity.newInstance(this)
+        }
+        binding.btMo.setOnClickListener {
+            DemosaicingActivity.newInstance(this)
         }
 
     }

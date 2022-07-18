@@ -146,6 +146,13 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:text="膨胀操作" />
+            <Button
+                android:id="@+id/bt_mo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="去除马赛克" />
 
 
 
