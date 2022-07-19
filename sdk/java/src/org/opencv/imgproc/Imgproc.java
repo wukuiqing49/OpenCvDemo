@@ -8247,7 +8247,7 @@ public class Imgproc {
 
     /**
      * Applies a GNU Octave/MATLAB equivalent colormap on a given image.
-     *
+     *在给定图像上应用GNU倍频程/MATLAB等效色映射。
      * @param src The source image, grayscale or colored of type CV_8UC1 or CV_8UC3.
      * @param dst The result is the colormapped source image. Note: Mat::create is called on dst.
      * @param colormap The colormap to apply, see #ColormapTypes

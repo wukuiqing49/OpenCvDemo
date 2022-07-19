@@ -162,48 +162,6 @@ class BrightnessAndContrastActivity : AppCompatActivity() {
 
     }
 
-    private fun processLight(progress: Int) {
-        Observable.create<Bitmap> {
-            var bm = Glide.with(this).asBitmap().load(path).submit().get()
-            it.onNext(bm)
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onNext(t: Bitmap) {
-                    ImageUtil.toLight(t, binding!!.ivContent, progress.toDouble())
-                }
-
-                override fun onError(e: Throwable) {
-                }
-
-                override fun onComplete() {
-                }
-            })
-
-    }
-    private fun processDB(progress: Int) {
-        Observable.create<Bitmap> {
-            var bm = Glide.with(this).asBitmap().load(path).submit().get()
-            it.onNext(bm)
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onNext(t: Bitmap) {
-                    ImageUtil.yuv(t, binding!!.ivContent, progress.toDouble()/10)
-                }
-
-                override fun onError(e: Throwable) {
-                }
-
-                override fun onComplete() {
-                }
-            })
-
-    }
 
 
 }

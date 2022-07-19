@@ -408,4 +408,7 @@ object ImageUtil {
     //执行高级形态变换
     //Imgproc.morphologyEx(bgrList[i], bgrList[i])
 
+    //在给定图像上应用GNU倍频程/MATLAB等效色映射。
+    //Imgproc.applyColorMap(bgrList[i], bgrList[i])
+
 }
