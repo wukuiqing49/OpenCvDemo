@@ -9,6 +9,7 @@ import android.os.Build
 import android.widget.ImageView
 import org.opencv.android.Utils
 import org.opencv.core.*
+import org.opencv.core.Core.BORDER_DEFAULT
 import org.opencv.core.CvType.CV_16UC1
 import org.opencv.imgproc.Imgproc
 import org.opencv.imgproc.Imgproc.*
@@ -16,9 +17,6 @@ import org.opencv.imgproc.Imgproc.*
 
 object ImageUtil {
 
-    init {
-        System.loadLibrary("opencv_java4")
-    }
     /**
      * 高斯差分
      */
@@ -31,7 +29,6 @@ object ImageUtil {
         Utils.bitmapToMat(imageBitmap, originalMat)
         Imgproc.cvtColor(originalMat, grayMat, Imgproc.COLOR_BGRA2GRAY)
         // 进行高斯模糊
-        Imgproc.GaussianBlur(originalMat, blur1, Size(15.0, 15.0), 5.0)
         Imgproc.GaussianBlur(originalMat, blur2, Size(21.0, 21.0), 5.0)
         // 将两幅模糊后的图像相减
         val doG = Mat()
@@ -106,8 +103,6 @@ object ImageUtil {
         //灰度处理
         var src =  Mat();
         var dst =  Mat();
-
-
         Utils.bitmapToMat(bitmap, src);
         Imgproc.GaussianBlur(src, dst, Size(77.0, 77.0), 5.0, 5.0)
         Utils.matToBitmap(dst, bitmap);
@@ -268,13 +263,10 @@ object ImageUtil {
         return dst
     }
 
-    //去马斯克
-    //Imgproc.demosaicing(bgrList[i], bgrList[i])
     /**
      * 设置图片亮度
      */
     fun demosaicing(bitmap: Bitmap, imageResult: ImageView){
-        //灰度处理
         var src =  Mat();
         var ret =  Mat();
         Utils.bitmapToMat(bitmap, src);
@@ -283,6 +275,76 @@ object ImageUtil {
         imageResult.setImageBitmap(bitmap);
         src.release();
         ret.release();
+    }
+    /**
+     * 模糊效果
+     */
+    fun pyrUp(bitmap: Bitmap, imageResult: ImageView){
+        var src =  Mat()
+        var ret =  Mat()
+        var out =  Mat()
+
+        Utils.bitmapToMat(bitmap, src)
+        var size=Size(src.cols()*2.toDouble(),src.rows()*2.toDouble())
+        Imgproc.pyrUp(src,ret,size,BORDER_DEFAULT)
+        var outSize=Size(bitmap.width.toDouble(),bitmap.height.toDouble())
+        Imgproc.resize(ret,out,outSize)
+        Utils.matToBitmap(out, bitmap)
+        imageResult.setImageBitmap(bitmap);
+        src.release();
+        ret.release();
+        out.release();
+    }
+    /**
+     * 模糊效果
+     * 使用中值滤波器模糊图像
+     * size 必须是奇数
+     */
+    fun medianBlur(bitmap: Bitmap, imageResult: ImageView,size:Int){
+        var src =  Mat()
+        var ret =  Mat()
+
+        Utils.bitmapToMat(bitmap, src)
+        Imgproc.medianBlur(src,ret,size)
+        Utils.matToBitmap(ret, bitmap)
+        imageResult.setImageBitmap(bitmap);
+        src.release();
+        ret.release();
+    }
+    /**
+     * 模糊效果
+     * 使用规格化盒过滤器模糊图像。
+     * size 必须是奇数
+     */
+
+    fun blur(bitmap: Bitmap, imageResult: ImageView,sizeW:Double){
+        var src =  Mat()
+        var ret =  Mat()
+
+        Utils.bitmapToMat(bitmap, src)
+        Imgproc.blur(src,ret,Size(sizeW, sizeW))
+        Utils.matToBitmap(ret, bitmap)
+        imageResult.setImageBitmap(bitmap);
+        src.release();
+        ret.release();
+    }
+    /**
+     * 模糊效果
+     * 长方体过滤器
+     *depth  0  -1
+     */
+
+    fun boxFilter(bitmap: Bitmap, imageResult: ImageView,depth:Int,sizeW:Double){
+        var src =  Mat()
+        var ret =  Mat()
+
+        Utils.bitmapToMat(bitmap, src)
+        Imgproc.boxFilter(src,ret,depth,Size(sizeW, sizeW))
+        Utils.matToBitmap(ret, bitmap)
+        imageResult.setImageBitmap(bitmap);
+        src.release();
+        ret.release();
+
     }
 
 

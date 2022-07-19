@@ -20,9 +20,6 @@ import java.nio.charset.Charset
  */
 
 object FilterUtil {
-    init {
-        System.loadLibrary("opencv_java4")
-    }
 
 
     /**

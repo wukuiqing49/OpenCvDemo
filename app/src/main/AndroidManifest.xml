@@ -58,6 +58,7 @@
         <activity android:name=".activity.BrightnessAndContrastActivity" />
         <activity android:name=".activity.PhotoProcessActivity" />
         <activity android:name=".activity.DemosaicingActivity" />
+        <activity android:name=".activity.BlurEffectActivity" />
     </application>
 
 </manifest>

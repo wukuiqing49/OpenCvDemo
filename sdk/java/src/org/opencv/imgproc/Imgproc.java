@@ -1015,6 +1015,7 @@ public class Imgproc {
 
     /**
      * Blurs an image using the median filter.
+     * 使用中值滤波器模糊图像。
      *
      * The function smoothes an image using the median filter with the \(\texttt{ksize} \times
      * \texttt{ksize}\) aperture. Each channel of a multi-channel image is processed independently.
@@ -4129,6 +4130,7 @@ public class Imgproc {
 
     /**
      * Resizes an image.
+     * 重置Mat大小
      *
      * The function resize resizes the image src down to or up to the specified size. Note that the
      * initial dst type or size are not taken into account. Instead, the size and type are derived from
@@ -5721,6 +5723,9 @@ public class Imgproc {
 
     /**
      * Upsamples an image and then blurs it.
+     *
+     * 对图像进行上采样，然后使其模糊
+     * 对图像进行上采样，然后使其模糊
      *
      * By default, size of the output image is computed as {@code Size(src.cols\*2, (src.rows\*2)}, but in any
      * case, the following conditions should be satisfied:

@@ -3,10 +3,7 @@ package com.wkq.opencvdemo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.wkq.opencvdemo.activity.BrightnessAndContrastActivity
-import com.wkq.opencvdemo.activity.DemosaicingActivity
-import com.wkq.opencvdemo.activity.FilterActivity
-import com.wkq.opencvdemo.activity.PhotoProcessActivity
+import com.wkq.opencvdemo.activity.*
 import com.wkq.opencvdemo.databinding.ActivityMainBinding
 import com.wkq.opencvdemo.util.ImageUtil
 import com.wkq.opencvdemo.util.PhotoUtil
@@ -78,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             PhotoProcessActivity.newInstance(this)
         }
         binding.btMo.setOnClickListener {
-            DemosaicingActivity.newInstance(this)
+            BlurEffectActivity.newInstance(this)
         }
 
     }

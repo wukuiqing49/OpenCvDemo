@@ -40,7 +40,7 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    val path = "https://img2.baidu.com/it/u=686238839,986827545&fm=253&fmt=auto&app=138&f=JPEG"
+    val path = "https://img-blog.csdnimg.cn/20210721193446915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2VsbGlzcHk=,size_16,color_FFFFFF,t_70"
 
     var binding: ActivityPhotoBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +60,9 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
         binding!!.onCLick = this
     }
 
-    private fun processPhotoJz(progress: Float) {
+
+    private fun downImg(type: Int) {
         Observable.create<Bitmap> {
-
-
             var bm = Glide.with(this).asBitmap().load(path).submit().get()
             if (bm != null) it.onNext(bm)
         }.subscribeOn(Schedulers.io())
@@ -73,40 +72,13 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
 
                     override fun onNext(bitmap: Bitmap) {
                         if (bitmap != null && bitmap.byteCount > 10) {
-                            PhotoUtil.fastNlMeansDenoising(bitmap, binding!!.ivContent, progress)
+                            processImg(type, bitmap)
                         } else {
                             Log.e("图片异常", bitmap.byteCount.toString())
                         }
 
                     }
 
-                    override fun onError(e: Throwable) {
-                    }
-
-                    override fun onComplete() {
-                    }
-                })
-
-    }
-    private fun processPhotosjzq(progress: Float) {
-        Observable.create<Bitmap> {
-
-
-            var bm = Glide.with(this).asBitmap().load(path).submit().get()
-            if (bm != null) it.onNext(bm)
-        }.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
-                    override fun onSubscribe(d: Disposable) {
-                    }
-
-                    override fun onNext(bitmap: Bitmap) {
-                        if (bitmap != null && bitmap.byteCount > 10) {
-                            PhotoUtil.detailEnhance(bitmap, binding!!.ivContent, progress)
-                        } else {
-                            Log.e("图片异常", bitmap.byteCount.toString())
-                        }
-
-                    }
 
                     override fun onError(e: Throwable) {
                     }
@@ -117,48 +89,50 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun processPhotoTS() {
-        Observable.create<Bitmap> {
+    private fun processImg(type: Int, bitmap: Bitmap) {
+        when (type) {
 
+            0 -> {
+                PhotoUtil.fastNlMeansDenoising(bitmap, binding!!.ivContent, size)
+            }
+            1 -> {
+                PhotoUtil.detailEnhance(bitmap, binding!!.ivContent, Range)
+            }
+            2 -> {
+                PhotoUtil.decolor(bitmap, binding!!.ivContent)
+            }
 
-            var bm = Glide.with(this).asBitmap().load(path).submit().get()
-            if (bm != null) it.onNext(bm)
-        }.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Bitmap> {
-                    override fun onSubscribe(d: Disposable) {
-                    }
-
-                    override fun onNext(bitmap: Bitmap) {
-                        if (bitmap != null && bitmap.byteCount > 10) {
-                            PhotoUtil.decolor(bitmap, binding!!.ivContent)
-                        } else {
-                            Log.e("图片异常", bitmap.byteCount.toString())
-                        }
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                    }
-
-                    override fun onComplete() {
-                    }
-                })
-
+            3 -> {
+                PhotoUtil.stylization(bitmap, binding!!.ivContent, style)
+            }
+            4-> {
+                PhotoUtil.pencilSketch(bitmap, binding!!.ivContent)
+            }
+        }
     }
+
     var size = 1f
-    var Range=50f
+    var Range = 50f
+    var style = 0f
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.bt_jz -> {
-                processPhotoJz(size)
+                downImg(0)
                 size += 1f
             }
             R.id.bt_sjzq -> {
-                processPhotosjzq(Range)
+                downImg(1)
                 Range += 10f
             }
-            R.id.bt_ts-> {
-                processPhotoTS()
+            R.id.bt_ts -> {
+                downImg(2)
+            }
+            R.id.bt_style -> {
+                style += 10
+                downImg(3)
+            }
+            R.id.bt_pencilSketch -> {
+                downImg(4)
             }
         }
     }

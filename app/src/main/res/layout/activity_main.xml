@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="去除马赛克" />
+                android:text="模糊效果" />
 
 
 
