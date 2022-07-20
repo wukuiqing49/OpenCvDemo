@@ -119,27 +119,22 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
         when (v!!.id) {
             R.id.bt_jz -> {
 
-                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_LONG).show()
                 downImg(0)
                 size += 1f
             }
             R.id.bt_sjzq -> {
                 downImg(1)
                 Range += 10f
-                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_SHORT).show()
             }
             R.id.bt_ts -> {
                 downImg(2)
-                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_LONG).show()
             }
             R.id.bt_style -> {
                 style += 10
                 downImg(3)
-                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_SHORT).show()
             }
             R.id.bt_pencilSketch -> {
                 downImg(4)
-                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_SHORT).show()
             }
         }
     }
