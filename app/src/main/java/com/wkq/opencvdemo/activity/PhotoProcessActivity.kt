@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -117,22 +118,28 @@ class PhotoProcessActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.bt_jz -> {
+
+                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_LONG).show()
                 downImg(0)
                 size += 1f
             }
             R.id.bt_sjzq -> {
                 downImg(1)
                 Range += 10f
+                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_SHORT).show()
             }
             R.id.bt_ts -> {
                 downImg(2)
+                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_LONG).show()
             }
             R.id.bt_style -> {
                 style += 10
                 downImg(3)
+                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_SHORT).show()
             }
             R.id.bt_pencilSketch -> {
                 downImg(4)
+                Toast.makeText(this@PhotoProcessActivity,"131243213123",Toast.LENGTH_SHORT).show()
             }
         }
     }
