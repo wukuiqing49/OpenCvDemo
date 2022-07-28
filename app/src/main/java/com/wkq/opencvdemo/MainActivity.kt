@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity() {
         binding.btMo.setOnClickListener {
             BlurEffectActivity.newInstance(this)
         }
+        binding.btText.setOnClickListener {
+            ImageUtil.addChineseText(
+                    ImageUtil.getBitmap(this@MainActivity, R.mipmap.ic_launcher)!!,
+                    binding.ivContent
+            );
+        }
 
     }
 

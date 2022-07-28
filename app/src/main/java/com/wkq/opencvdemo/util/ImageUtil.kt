@@ -1,9 +1,7 @@
 package com.wkq.opencvdemo.util
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.widget.ImageView
@@ -45,10 +43,10 @@ object ImageUtil {
     /**
      * 灰度处理
      */
-    fun Togray(bitmap: Bitmap, imageResult: ImageView){
+    fun Togray(bitmap: Bitmap, imageResult: ImageView) {
         //灰度处理
-        var src =  Mat();
-        var dst =  Mat();
+        var src = Mat();
+        var dst = Mat();
 
         Utils.bitmapToMat(bitmap, src);
         Imgproc.cvtColor(src, dst, Imgproc.COLOR_BGR2GRAY);
@@ -57,13 +55,14 @@ object ImageUtil {
         src.release();
         dst.release();
     }
+
     /**
      * 腐蚀操作
      */
-    fun Tocorrosion(bitmap: Bitmap, imageResult: ImageView){
+    fun Tocorrosion(bitmap: Bitmap, imageResult: ImageView) {
         //灰度处理
-        var src =  Mat();
-        var dst =  Mat();
+        var src = Mat();
+        var dst = Mat();
         val element = Imgproc.getStructuringElement(MORPH_RECT, Size(10.0, 10.0))
 
         Utils.bitmapToMat(bitmap, src);
@@ -74,10 +73,34 @@ object ImageUtil {
         dst.release();
     }
 
+    fun addChineseText(bitmap: Bitmap, imageResult: ImageView) {
+
+//        Imgproc.putText()  中文会乱码
+        var dst = Mat();
+        var bgr = Mat();
+        Utils.bitmapToMat(bitmap, bgr)
+        Imgproc.cvtColor(bgr, dst, Imgproc.COLOR_BGR2BGRA)
+        Utils.matToBitmap(dst.clone(), bitmap)
+        val bitmap: Bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(bitmap)
+        val paint = Paint()
+        paint.isAntiAlias = true
+        paint.isDither = true
+        paint.textSize = 10F
+        paint.color = Color.BLUE
+        canvas.drawText(
+            "我是文字",
+            (bitmap.width / 5).toFloat(),
+            (bitmap.height / 2).toFloat(),
+            paint
+        )
+        imageResult.setImageBitmap(bitmap)
+    }
+
     /**
      * 边缘监测
      */
-    fun CannyScan(bitmap: Bitmap, imageResult: ImageView){
+    fun CannyScan(bitmap: Bitmap, imageResult: ImageView) {
         //灰度处理
 
         val src = Mat()
@@ -99,10 +122,10 @@ object ImageUtil {
     /**
      * 高斯模糊
      */
-    fun ToGaussian(bitmap: Bitmap, imageResult: ImageView){
+    fun ToGaussian(bitmap: Bitmap, imageResult: ImageView) {
         //灰度处理
-        var src =  Mat();
-        var dst =  Mat();
+        var src = Mat();
+        var dst = Mat();
         Utils.bitmapToMat(bitmap, src);
         Imgproc.GaussianBlur(src, dst, Size(77.0, 77.0), 5.0, 5.0)
         Utils.matToBitmap(dst, bitmap);
@@ -114,10 +137,10 @@ object ImageUtil {
     /**
      * 膨胀操作
      */
-    fun Todilate(bitmap: Bitmap, imageResult: ImageView){
+    fun Todilate(bitmap: Bitmap, imageResult: ImageView) {
         //灰度处理
-        var src =  Mat();
-        var ret =  Mat();
+        var src = Mat();
+        var ret = Mat();
         val element = Imgproc.getStructuringElement(MORPH_RECT, Size(10.0, 10.0))
         Utils.bitmapToMat(bitmap, src);
         Imgproc.dilate(src, ret, element);
@@ -131,10 +154,10 @@ object ImageUtil {
     /**
      * 中值滤波
      */
-    fun TomedianBlur(bitmap: Bitmap, imageResult: ImageView){
+    fun TomedianBlur(bitmap: Bitmap, imageResult: ImageView) {
         //灰度处理
-        var src =  Mat();
-        var ret =  Mat();
+        var src = Mat();
+        var ret = Mat();
 
         Utils.bitmapToMat(bitmap, src);
         Imgproc.medianBlur(src, ret, 77);
@@ -166,12 +189,12 @@ object ImageUtil {
     /**
      * 设置图片亮度
      */
-    fun toLight(bitmap: Bitmap, imageResult: ImageView, lightNum: Double){
+    fun toLight(bitmap: Bitmap, imageResult: ImageView, lightNum: Double) {
         //灰度处理
-        var src =  Mat();
-        var ret =  Mat();
+        var src = Mat();
+        var ret = Mat();
         Utils.bitmapToMat(bitmap, src);
-        var mat=changeMatLuminance(src, lightNum);
+        var mat = changeMatLuminance(src, lightNum);
         val bitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(mat, bitmap)
         imageResult.setImageBitmap(bitmap);
@@ -184,18 +207,17 @@ object ImageUtil {
     /**
      * 改变图像对比度
      */
-    fun toMatLuminance(bitmap: Bitmap, imageResult: ImageView, lightNum: Double){
+    fun toMatLuminance(bitmap: Bitmap, imageResult: ImageView, lightNum: Double) {
         //灰度处理
-        var src =  Mat();
+        var src = Mat();
         Utils.bitmapToMat(bitmap, src);
-        var mat=changeMatContrast(src, lightNum);
+        var mat = changeMatContrast(src, lightNum);
         val bitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(mat, bitmap)
         imageResult.setImageBitmap(bitmap);
         src.release();
         mat.release();
     }
-
 
 
     /**
@@ -205,7 +227,7 @@ object ImageUtil {
      * @param luminanceParams 亮度参数，小于0降低亮度，大于0增加亮度
      * @return 调整对比度后的图像
      */
-    fun changeMatLuminance(srcMat: Mat, luminanceParams: Double):Mat{
+    fun changeMatLuminance(srcMat: Mat, luminanceParams: Double): Mat {
         val res = Mat()
         Core.add(srcMat, Scalar(luminanceParams, luminanceParams, luminanceParams), res)
         return res
@@ -218,15 +240,15 @@ object ImageUtil {
      * @param contrastParams 对比度参数，小于1降低对比度，大于1增加对比度
      * @return 调整对比度后的图像
      */
-    fun changeMatContrast(srcMat: Mat, contrastParams: Double):Mat{
+    fun changeMatContrast(srcMat: Mat, contrastParams: Double): Mat {
         val res = Mat()
         Core.multiply(srcMat, Scalar(contrastParams, contrastParams, contrastParams), res)
         return res
     }
 
 
-    fun yuv(bitmap: Bitmap, imageResult: ImageView, lightNum: Double){
-        var srcMat =  Mat();
+    fun yuv(bitmap: Bitmap, imageResult: ImageView, lightNum: Double) {
+        var srcMat = Mat();
         Utils.bitmapToMat(bitmap, srcMat);
         var dstMat = Mat(srcMat.rows(), srcMat.cols(), srcMat.type())
         var bgrList: ArrayList<Mat> = ArrayList(3)
@@ -236,7 +258,14 @@ object ImageUtil {
         }
         var bgrMat = Mat(srcMat.rows(), srcMat.cols(), srcMat.type())
         Core.merge(bgrList, bgrMat) // 合并通道
-        Core.addWeighted(srcMat, lightNum/10, bgrMat, lightNum/10, (lightNum*3-10), dstMat) // 添加权重
+        Core.addWeighted(
+            srcMat,
+            lightNum / 10,
+            bgrMat,
+            lightNum / 10,
+            (lightNum * 3 - 10),
+            dstMat
+        ) // 添加权重
         Utils.matToBitmap(dstMat, bitmap)
         imageResult.setImageBitmap(bitmap);
         srcMat.release();
@@ -266,80 +295,84 @@ object ImageUtil {
     /**
      * 设置图片亮度
      */
-    fun demosaicing(bitmap: Bitmap, imageResult: ImageView){
-        var src =  Mat();
-        var ret =  Mat();
+    fun demosaicing(bitmap: Bitmap, imageResult: ImageView) {
+        var src = Mat();
+        var ret = Mat();
         Utils.bitmapToMat(bitmap, src);
-        Imgproc.demosaicing(src,ret, COLOR_BayerBG2BGRA)
+        Imgproc.demosaicing(src, ret, COLOR_BayerBG2BGRA)
         Utils.matToBitmap(ret, bitmap)
         imageResult.setImageBitmap(bitmap);
         src.release();
         ret.release();
     }
+
     /**
      * 模糊效果
      */
-    fun pyrUp(bitmap: Bitmap, imageResult: ImageView){
-        var src =  Mat()
-        var ret =  Mat()
-        var out =  Mat()
+    fun pyrUp(bitmap: Bitmap, imageResult: ImageView) {
+        var src = Mat()
+        var ret = Mat()
+        var out = Mat()
 
         Utils.bitmapToMat(bitmap, src)
-        var size=Size(src.cols()*2.toDouble(),src.rows()*2.toDouble())
-        Imgproc.pyrUp(src,ret,size,BORDER_DEFAULT)
-        var outSize=Size(bitmap.width.toDouble(),bitmap.height.toDouble())
-        Imgproc.resize(ret,out,outSize)
+        var size = Size(src.cols() * 2.toDouble(), src.rows() * 2.toDouble())
+        Imgproc.pyrUp(src, ret, size, BORDER_DEFAULT)
+        var outSize = Size(bitmap.width.toDouble(), bitmap.height.toDouble())
+        Imgproc.resize(ret, out, outSize)
         Utils.matToBitmap(out, bitmap)
         imageResult.setImageBitmap(bitmap);
         src.release();
         ret.release();
         out.release();
     }
+
     /**
      * 模糊效果
      * 使用中值滤波器模糊图像
      * size 必须是奇数
      */
-    fun medianBlur(bitmap: Bitmap, imageResult: ImageView,size:Int){
-        var src =  Mat()
-        var ret =  Mat()
+    fun medianBlur(bitmap: Bitmap, imageResult: ImageView, size: Int) {
+        var src = Mat()
+        var ret = Mat()
 
         Utils.bitmapToMat(bitmap, src)
-        Imgproc.medianBlur(src,ret,size)
+        Imgproc.medianBlur(src, ret, size)
         Utils.matToBitmap(ret, bitmap)
         imageResult.setImageBitmap(bitmap);
         src.release();
         ret.release();
     }
+
     /**
      * 模糊效果
      * 使用规格化盒过滤器模糊图像。
      * size 必须是奇数
      */
 
-    fun blur(bitmap: Bitmap, imageResult: ImageView,sizeW:Double){
-        var src =  Mat()
-        var ret =  Mat()
+    fun blur(bitmap: Bitmap, imageResult: ImageView, sizeW: Double) {
+        var src = Mat()
+        var ret = Mat()
 
         Utils.bitmapToMat(bitmap, src)
-        Imgproc.blur(src,ret,Size(sizeW, sizeW))
+        Imgproc.blur(src, ret, Size(sizeW, sizeW))
         Utils.matToBitmap(ret, bitmap)
         imageResult.setImageBitmap(bitmap);
         src.release();
         ret.release();
     }
+
     /**
      * 模糊效果
      * 长方体过滤器
      *depth  0  -1
      */
 
-    fun boxFilter(bitmap: Bitmap, imageResult: ImageView,depth:Int,sizeW:Double){
-        var src =  Mat()
-        var ret =  Mat()
+    fun boxFilter(bitmap: Bitmap, imageResult: ImageView, depth: Int, sizeW: Double) {
+        var src = Mat()
+        var ret = Mat()
 
         Utils.bitmapToMat(bitmap, src)
-        Imgproc.boxFilter(src,ret,depth,Size(sizeW, sizeW))
+        Imgproc.boxFilter(src, ret, depth, Size(sizeW, sizeW))
         Utils.matToBitmap(ret, bitmap)
         imageResult.setImageBitmap(bitmap);
         src.release();
@@ -357,39 +390,39 @@ object ImageUtil {
     //去马斯克
     //Imgproc.demosaicing(bgrList[i], bgrList[i])
 
-   // 将图像从一个颜色空间转换为源图像所在的另一个颜色空间存储在两个平面中。
+    // 将图像从一个颜色空间转换为源图像所在的另一个颜色空间存储在两个平面中。
     //Imgproc.cvtColorTwoPlane(bgrList[i], bgrList[i])
 
-   // 将图像从一个颜色空间转换为另一个颜色空间。
+    // 将图像从一个颜色空间转换为另一个颜色空间。
     //Imgproc.cvtColor(bgrList[i], bgrList[i])
 
-   // 洪水填充。
+    // 洪水填充。
     //Imgproc.floodFill(bgrList[i], bgrList[i])
 
-   // 距离转换。
+    // 距离转换。
     //Imgproc.distanceTransform(bgrList[i], bgrList[i])
 
-   // 比较两个图。
+    // 比较两个图。
     //Imgproc.equalizeHist(bgrList[i], bgrList[i])
-   // 自适应阈值。
+    // 自适应阈值。
     //Imgproc.threshold(bgrList[i], bgrList[i])
 
-   // 更新运行平均值。
+    // 更新运行平均值。
     //Imgproc.accumulateWeighted(bgrList[i], bgrList[i])
 
-   // 叠加图像。
+    // 叠加图像。
     //Imgproc.accumulateSquare(bgrList[i], bgrList[i])
 
-   // 透明操作????
+    // 透明操作????
     //Imgproc.getPerspectiveTransform(bgrList[i], bgrList[i])
-   // 将透视变换应用于图像。
+    // 将透视变换应用于图像。
     //Imgproc.warpPerspective(bgrList[i], bgrList[i])
     //Imgproc.warpPerspective(bgrList[i], bgrList[i])
 
-   // 该函数计算由（2乘以3）矩阵M表示的反仿射变换
+    // 该函数计算由（2乘以3）矩阵M表示的反仿射变换
     //Imgproc.invertAffineTransform(bgrList[i], bgrList[i])
 
-   // 调整大小
+    // 调整大小
     //Imgproc.resize(bgrList[i], bgrList[i])
 
     //Upsamples an image and then blurs it. 对图像进行上采样，然后使其模糊。  (模糊操作)

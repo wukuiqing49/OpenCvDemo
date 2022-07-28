@@ -1,7 +1,9 @@
 package com.wkq.opencvdemo.util
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.widget.ImageView
 import org.opencv.android.Utils
 import org.opencv.core.*
@@ -53,6 +55,8 @@ object FilterUtil {
         imageResult.setImageBitmap(bitmap);
         dst.release();
     }
+
+
 
     /**
      * 轮廓()即使边缘监测

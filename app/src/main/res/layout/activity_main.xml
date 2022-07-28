@@ -154,7 +154,13 @@
                 android:layout_marginLeft="10dp"
                 android:text="模糊效果" />
 
-
+            <Button
+                android:id="@+id/bt_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="添加文字" />
 
         </LinearLayout>
 
